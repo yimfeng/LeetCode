@@ -9,30 +9,19 @@ public class P647 {
     public static void main(String[] args) {
 
     }
-    public int countSubstrings(String s) {
-        List<List<String>> res = new ArrayList<>();
-        int sum = 0;
+    // 使用动态规划进行遍历
+    public int countSubstrings_1(String s){
         int len = s.length();
-        if(len == 0)
-            return 0;
-        Deque<String> path = new ArrayDeque<>();
-        dfs(s, len, 0, path, res);
-
-    }
-    private void dfs(String s, int len, int index, Deque<String> path,List<List<String>> res){
-        res.add(new ArrayList<>(path));
-        for (int i = index; i < len; i++) {
-            path.addLast(s.charAt(i));
-            dfs(s, len, index+1, path, res);
-            path.removeLast();
+        boolean[][] dp = new boolean[len][len];
+        int ans = 0;
+        for (int j = 0; j < len; j++) {
+            for (int i = 0; i <= j; i++) {
+                if(s.charAt(i) == s.charAt(j) && (j - i < 2 || dp[i+1][j-1])){
+                    dp[i][j] = true;
+                    ans++;
+                }
+            }
         }
-    }
-    private boolean judge(String s){
-        int len = s.length();
-        for (int i = 0; i < len/2; i++) {
-            if(s[i] != s[len-i-1])
-                return false;
-        }
-        return true;
+        return ans;
     }
 }
