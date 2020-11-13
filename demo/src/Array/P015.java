@@ -36,19 +36,19 @@ public class P015 {
     // 排序+双指针法
     public List<List<Integer>> threeSum_1(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
+        Arrays.sort(nums);
         int len = nums.length;
         if(len == 0)
             return res;
-        Arrays.sort(nums);
         for (int i = 0; i < len; i++) {
             if(nums[i] > 0)
                 break;
-            if(i > 0 && nums[i] == nums [i-1])
+            if(i > 0 && nums[i] == nums[i-1])
                 continue;
             int L = i + 1;
-            int R = len -1;
+            int R = len - 1;
             while(L < R){
-                int sum = nums[i] + nums[L] + nums[R];
+                int sum = nums[L] + nums[i] + nums[R];
                 if(sum == 0){
                     res.add(Arrays.asList(nums[i], nums[L], nums[R]));
                     while(L < R && nums[L] == nums[L+1])
@@ -58,10 +58,8 @@ public class P015 {
                     L++;
                     R--;
                 }
-                else if(sum < 0)
-                    L++;
-                else
-                    R--;
+                else if(sum < 0) L++;
+                else R--;
             }
         }
         return res;
