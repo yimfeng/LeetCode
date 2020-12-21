@@ -30,6 +30,7 @@ public class P105 {
     public TreeNode bulidTree(int[] preorder, int[] inorder){
         return buildTreeHelper(preorder, 0, preorder.length, inorder, 0, inorder.length);
     }
+
     private TreeNode buildTreeHelper(int[] preorder,int p_start, int p_end, int[] inorder, int i_start, int i_end){
         if(p_start == p_end)
             return null;
