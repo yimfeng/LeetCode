@@ -4,23 +4,11 @@ public class P011 {
     public static void main(String[] args) {
 
     }
-    int maxarea = 0;
-    public int maxArea(int[] height) {
-        int temp = 0;
-        int len = height.length;
-        int p = 0, q = len-1;
-        while(p != q){
-            if(height[p] > height[q]){
-                temp = height[q] * (q - p);
-                q--;
-            }
-            else{
-                temp = height[p] * (q - p);
-                p++;
-            }
-            if(temp > maxarea)
-                maxarea = temp;
+    public int maxArea(int[] height){
+        int p = 0, q = height.length - 1, ans = 0;
+        while(p < q){
+            ans = height[p] < height[q] ? Math.max((q - p) * height[p++], ans) : Math.max((q - p) * height[q--], ans);
         }
-        return maxarea;
+        return ans;
     }
 }

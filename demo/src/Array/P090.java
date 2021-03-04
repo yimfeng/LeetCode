@@ -13,18 +13,16 @@ public class P090 {
             return res;
         Deque<Integer> path = new ArrayDeque<>();
         Arrays.sort(nums);
-        dfs(nums, 0, path, res);
+        dfs(nums, res, path, len, 0);
         return res;
     }
-    private void dfs(int[] nums, int start, Deque<Integer> path, List<List<Integer>> res){
+    private void dfs(int[] nums, List<List<Integer>> res, Deque<Integer> path, int len, int start){
         res.add(new ArrayList<>(path));
-        for (int i = start; i < nums.length; i++) {
-
-            if(i > start && nums[i] == nums[i-1]) //保证不会出现重复的数据
+        for (int i = start; i < len; i++) {
+            if(i > start && nums[i] == nums[i-1])
                 continue;
-
             path.addLast(nums[i]);
-            dfs(nums, i+1, path, res);
+            dfs(nums, res, path, len, i+1);
             path.removeLast();
         }
     }

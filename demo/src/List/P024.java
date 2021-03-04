@@ -29,4 +29,27 @@ public class P024 {
             p.next = null;
         return head.next;
     }
+
+    public ListNode swapPairs_1(ListNode head){
+        if(head == null || head.next == null)
+            return head;
+        Stack<ListNode> stack = new Stack<>();
+        ListNode p = new ListNode(0);
+        ListNode cur = head;
+        head = p;
+        while(cur != null && cur.next != null){
+            stack.add(cur);
+            stack.add(cur.next);
+            cur = cur.next.next;
+            p.next = stack.pop();
+            p = p.next;
+            p.next = stack.pop();
+            p = p.next;
+        }
+        if(cur != null)
+            p.next = cur;
+        else
+            p.next = null;
+        return head.next;
+    }
 }

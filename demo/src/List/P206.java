@@ -16,4 +16,25 @@ public class P206 {
         }
         return prev;
     }
+    // 双指针方法
+    public ListNode reverseList_1(ListNode head) {
+        ListNode prev = head;
+        ListNode curr = null;
+        while(prev != null){
+            ListNode temp = prev.next;
+            prev.next = curr;
+            curr = prev;
+            prev = temp;
+        }
+        return curr;
+    }
+    // 递归方法
+    public ListNode reverseList_2(ListNode head){
+        if(head == null || head.next == null)
+            return head;
+        ListNode curr = reverseList(head.next);
+        head.next.next = head;
+        head.next = null;
+        return curr;
+    }
 }

@@ -12,27 +12,23 @@ public class P046 {
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
         int len = nums.length;
-        if(len == 0)
-            return res;
-        Boolean[] visited = new Boolean[len];
-        int depth = 0;
-        List<Integer> path = new ArrayList<>();
-        dfs(nums, len, depth, visited, path, res);
+        Deque<Integer> path = new ArrayDeque<>();
+        boolean[] visit = new boolean[len+1];
+        dfs(nums, res, path, visit, len);
         return res;
     }
-    private void dfs(int[] nums, int len ,int depth, Boolean[] visited, List<Integer> path, List<List<Integer>> res){
-        if(depth == len){
+    private void dfs(int[] nums, List<List<Integer>> res, Deque<Integer> path, boolean[] visit, int len){
+        if(path.size() == len){
             res.add(new ArrayList<>(path));
             return;
         }
         for (int i = 0; i < len; i++) {
-            if(visited[i] == false){
-                path.add(nums[i]);
-                visited[i] = true;
-                dfs(nums, len, depth + 1, visited, path, res);
-
-                visited[i] = false;
-                path.remove(path.size() - 1);
+            if(visit[i] == false){
+                path.addLast(nums[i]);
+                visit[i] = true;
+                dfs(nums, res, path, visit, len);
+                visit[i] = false;
+                path.removeLast();
             }
         }
     }

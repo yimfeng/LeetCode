@@ -37,29 +37,29 @@ public class P015 {
     public List<List<Integer>> threeSum_1(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
         Arrays.sort(nums);
-        int len = nums.length;
-        if(len == 0)
+        if(nums.length == 0)
             return res;
-        for (int i = 0; i < len; i++) {
+        for (int i = 0; i < nums.length; i++) {
             if(nums[i] > 0)
                 break;
             if(i > 0 && nums[i] == nums[i-1])
                 continue;
-            int L = i + 1;
-            int R = len - 1;
-            while(L < R){
-                int sum = nums[L] + nums[i] + nums[R];
-                if(sum == 0){
-                    res.add(Arrays.asList(nums[i], nums[L], nums[R]));
-                    while(L < R && nums[L] == nums[L+1])
-                        L++;
-                    while(L < R && nums[R] == nums[R-1])
-                        R--;
-                    L++;
-                    R--;
+            int p = i+1, q = nums.length - 1;
+            while(p < q){
+                int sum = nums[i] + nums[p] + nums[q];
+                if(sum == 0) {
+                    res.add(Arrays.asList(nums[p], nums[i], nums[q]));
+                    while(p < q && nums[p] == nums[p+1])
+                        p++;
+                    while(p > q && nums[q] == nums[q-1])
+                        q--;
+                    p++;
+                    q--;
                 }
-                else if(sum < 0) L++;
-                else R--;
+                else if(sum > 0)
+                    q--;
+                else
+                    p++;
             }
         }
         return res;

@@ -26,34 +26,37 @@ public class P018 {
     public static void main(String[] args) {
 
     }
-    public List<List<Integer>> fourSum(int[] nums, int target) {
+    public List<List<Integer>> fourSum(int[] nums, int target){
         List<List<Integer>> res = new ArrayList<>();
         int len = nums.length;
         if(len == 0)
             return res;
         Arrays.sort(nums);
         for (int i = 0; i < len; i++) {
-            if(nums[i] > 0)
+            if(nums[i] > target)
                 break;
+            if(i > 0 && nums[i] == nums[i-1] && len > 4)
+                continue;
             for (int j = i+1; j < len; j++) {
-                if(j > i+1 && nums[j] == nums[j-1])
+                if(j > i+1 && nums[j] == nums[j-1] && len > 4)
                     continue;
-                int L = j+1, R = len-1;
+                int L = j+1;
+                int R = len-1;
                 while(L < R){
                     int sum = nums[i] + nums[j] + nums[L] + nums[R];
-                    if(sum == 0){
-                        res.add(Arrays.asList(nums[i], nums[j], nums[L] ,nums[R]));
-                        while(L < R && nums[L] == nums[L+1])
+                    if(sum == target){
+                        res.add(Arrays.asList(nums[i], nums[j], nums[L], nums[R]));
+                        if(L < R && nums[L] == nums[L+1])
                             L++;
-                        while(L < R && nums[R] == nums[R-1])
+                        if(L > R && nums[R] == nums[R-1])
                             R--;
                         L++;
                         R--;
                     }
-                    else if(sum < 0)
-                        L++;
-                    else
+                    else if(sum > target)
                         R--;
+                    else
+                        L++;
                 }
             }
         }

@@ -5,15 +5,14 @@ public class P026 {
 
     }
     public int removeDuplicates(int[] nums) {
-        if(nums.length == 0)
+        int len = nums.length;
+        if(len == 0)
             return 0;
-        int p = 0;
-        for(int q = 1; q < nums.length; q++){
-            if(nums[q] != nums[p]){
-                p++;
-                nums[p] = nums[q];
-            }
+        int j = 0;
+        for (int i = 1; i < len; i++) {
+            if(nums[i] != nums[j])
+                nums[++j] = nums[i];
         }
-        return p+1;
+        return j+1;
     }
 }

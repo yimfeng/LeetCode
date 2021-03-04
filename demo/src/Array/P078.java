@@ -1,9 +1,6 @@
 package Array;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 public class P078 {
     public static void main(String[] args) {
@@ -14,16 +11,16 @@ public class P078 {
         int len = nums.length;
         if(len == 0)
             return res;
+        Arrays.sort(nums);
         Deque<Integer> path = new ArrayDeque<>();
-        dfs(nums, len, 0, path, res);
+        dfs(nums, path, res, len, 0);
         return res;
     }
-    private void dfs(int[] nums, int len, int begin, Deque<Integer> path, List<List<Integer>> res){
+    private void dfs(int[] nums, Deque<Integer> path, List<List<Integer>> res, int len, int start){
         res.add(new ArrayList<>(path));
-        for (int i = begin; i < len; i++) {
+        for (int i = start; i < len; i++) {
             path.addLast(nums[i]);
-            dfs(nums, len, i + 1, path, res);
-            // 回溯
+            dfs(nums, path, res, len, i+1);
             path.removeLast();
         }
     }
