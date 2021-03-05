@@ -1,5 +1,6 @@
 package List;
 
+import java.beans.beancontext.BeanContext;
 import java.util.Stack;
 
 /**
@@ -11,6 +12,7 @@ public class P025 {
     public static void main(String[] args) {
 
     }
+    // 自己写的用栈来进行
     public ListNode reverseKGroup(ListNode head, int k) {
         if(head == null || k == 1)
             return head;
@@ -43,5 +45,44 @@ public class P025 {
             len++;
         }
         return len;
+    }
+
+
+    public ListNode reverseKGroup_1(ListNode head, int k){
+        if(head == null || head.next == null)
+            return head;
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode pre = dummy;
+        ListNode end = dummy;
+        while(end != null){
+            for (int i = 0; i < k && end != null; i++) {
+                end = end.next;
+            }
+            if(end == null)
+                break;
+            ListNode next = end.next;
+            end.next = null;
+            ListNode start = pre.next;
+            reverse(start);
+            start.next = next;
+            pre = start;
+            end = start;
+        }
+        return dummy.next;
+    }
+
+    private ListNode reverse(ListNode head){
+        if(head == null || head.next == null)
+            return head;
+        ListNode prev = null;
+        ListNode curr = head;
+        while(curr != null){
+            ListNode temp = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = temp;
+        }
+        return prev;
     }
 }
